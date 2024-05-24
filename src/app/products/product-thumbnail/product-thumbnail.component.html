@@ -1,0 +1,21 @@
+<div class="d-flex">
+  <div class="p-2 w-100">
+    <img src="app/images/JADPROD.jpg" alt="{{ product.name }}">
+    <h5>{{ product.name }}</h5>
+    <p>{{ product.price | currency }}</p>
+    <p>
+      <small>{{ product.category }}</small>
+    </p>
+    <p>
+      <small>{{ product.description }}</small>
+    </p>
+    <p>
+      <small>{{ product.fitting }}</small>
+    </p>
+  </div>
+  <div class="p-2 flex-shrink-1">
+    <button (click)="buyProduct(product)" class="btn btn-primary float-right">
+      Buy</button>
+  </div>
+</div>
+<hr>

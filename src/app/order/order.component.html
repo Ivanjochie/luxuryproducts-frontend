@@ -1,0 +1,23 @@
+<h2>Order history</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Product name</th>
+      <th>Order date</th>
+      <th>Count</th>
+      <th>Price</th>
+      <th>Total price</th>
+      <th>Order </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.productName }}</td>
+      <td>{{ order.date | date }}</td>
+      <td>{{ order.quantity }}</td>
+      <td>{{ order.price }}</td>
+      <td>{{ order.totalPrice }}</td>
+      <td>{{ order.orderNumber }}</td>
+    </tr>
+  </tbody>
+</table>

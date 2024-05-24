@@ -1,0 +1,28 @@
+.producten-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  
+.product {
+      width: calc(33.333% - 10px); 
+  
+      
+      &:nth-child(3n), &:nth-child(3n + 1) {
+        &:after {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .producten-container .product {
+      width: calc(50% - 10px); 
+      &:nth-child(2n) {
+        &:after {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+  

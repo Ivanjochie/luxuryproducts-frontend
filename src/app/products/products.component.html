@@ -1,0 +1,11 @@
+<h3>Producten overzicht</h3>
+
+<div *ngIf="loadingProducts">
+  <p>Loading products...</p>
+</div>
+
+<div class="producten-container" *ngIf="!loadingProducts">
+  <div *ngFor="let product of products" class="product">
+    <app-product-thumbnail [product]="product" (onBuyProduct)="onBuyProduct(product)"></app-product-thumbnail>
+  </div>
+</div>
