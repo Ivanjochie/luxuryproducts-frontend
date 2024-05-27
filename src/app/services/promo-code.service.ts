@@ -38,12 +38,12 @@ export class PromoCodeService {
         );
     }
 
-    public usedPromoCode(code: string) {
-        return this.http.post(this.baseUrl + "/use", { code });
+    public usePromoCode(code: string) {
+        return this.http.post(this.baseUrl + "/use", { code : code });
     }
 
     public getPromoCode(code: string) {
-        return this.http.get<PromoCode>(this.baseUrl + "/get" + code).pipe(
+        return this.http.get<PromoCode>(this.baseUrl + "/get/" + code).pipe(
             map(responseData => {
                 return new PromoCode(responseData.code, responseData.discount, responseData.expiryDate, responseData.usageCount);
             })
