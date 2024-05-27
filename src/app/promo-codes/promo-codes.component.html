@@ -1,1 +1,39 @@
-<p>promo-codes works!</p>
+<div class="promo-codes-container">
+    <h2>Active Promo Codes</h2>
+    <div class="active-promo-codes">
+        <ul>
+            <li *ngFor="let promoCode of activePromoCodes" style="color: green">
+                {{ promoCode.code }} - {{ promoCode.discount }}% off - Expires: {{ promoCode.expiryDate | date }} - Used: {{ promoCode.usageCount }} times
+            </li>
+        </ul>
+    </div>
+
+    <h2>Inactive Promo Codes</h2>
+    <div class="inactive-promo-codes">
+        <ul>
+            <li *ngFor="let promoCode of inactivePromoCodes" style="color: red">
+                {{ promoCode.code }} - {{ promoCode.discount }}% off - Expired: {{ promoCode.expiryDate | date }} - Used: {{ promoCode.usageCount }} times
+            </li>
+        </ul>
+    </div>
+
+    <h2>Create New Promo Code</h2>
+    <div class="create-promo-code">
+        <form (ngSubmit)="onCreatePromoCode(code.value, +discount.value, expiryDate.value)">
+            <div>
+                <label for="code">Code:</label>
+                <input type="text" id="code" #code required>
+            </div>
+            <div>
+                <label for="discount">Discount (%):</label>
+                <input type="number" id="discount" #discount required>
+            </div>
+            <div>
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="date" id="expiryDate" #expiryDate required>
+            </div>
+            <button type="submit">Create Promo Code</button>
+        </form>
+    </div>
+</div>
+

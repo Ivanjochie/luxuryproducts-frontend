@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {PromoCodeService} from "../services/promo-code.service";
 
 @Component({
   selector: 'app-cart',
@@ -20,11 +21,14 @@ export class CartComponent implements OnInit {
   public totalPrice: number = 0;
   public orderEmail: string = ''; 
   quantity: number = 1;
+  private PromoCodeDiscount: number = 0;
+
 
   constructor(
     private cartService: CartService, 
     private http: HttpClient, 
-    private router: Router
+    private router: Router,
+    private promoCodeService: PromoCodeService
   ) {}
 
   ngOnInit() {
@@ -36,11 +40,18 @@ export class CartComponent implements OnInit {
     this.calculateTotalPrice(); 
   }
 
+  onCheckCode(code: string) {
+    this.promoCodeService.getPromoCode(code).subscribe((promoCode) => {
+      this.PromoCodeDiscount = promoCode.discount;
+      this.calculateTotalPrice();
+    });
+  }
+
   calculateTotalPrice() {
     this.totalPrice = 0;
     if (this.products_in_cart.length > 0) {
     const productsTotal = this.products_in_cart.reduce((acc, product) => acc + product.price, 0);
-    this.totalPrice = productsTotal + this.shippingCosts;
+    this.totalPrice = productsTotal + this.shippingCosts - (productsTotal * this.PromoCodeDiscount);
     }
   }
 

@@ -42,9 +42,18 @@ export class PromoCodeService {
         return this.http.post(this.baseUrl + "/use", { code });
     }
 
+    public getPromoCode(code: string) {
+        return this.http.get<PromoCode>(this.baseUrl + "/get" + code).pipe(
+            map(responseData => {
+                return new PromoCode(responseData.code, responseData.discount, responseData.expiryDate, responseData.usageCount);
+            })
+        );
+    }
+
     public createPromoCode(code: string, discount: number, validUntil: Date) {
         const validUntilLocalDate = this.convertToLocalDate(validUntil);
-        return this.http.post(this.baseUrl + "/create", { code, discount, validUntilLocalDate });
+
+        return this.http.post(this.baseUrl + "/create", { code, discount, expiry_date : validUntilLocalDate }, { responseType: 'text' });
     }
 
     private convertToLocalDate(date: Date): string {
