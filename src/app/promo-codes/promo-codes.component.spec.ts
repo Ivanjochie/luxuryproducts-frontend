@@ -10,8 +10,8 @@ describe('PromoCodesComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PromoCodesComponent]
     })
-    .compileComponents();
-    
+        .compileComponents();
+
     fixture = TestBed.createComponent(PromoCodesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

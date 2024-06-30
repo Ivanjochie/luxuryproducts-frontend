@@ -7,11 +7,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {AuthRequest} from "../auth-request.model";
 
 @Component({
-  standalone: true,
+    standalone: true,
     imports: [ReactiveFormsModule, FormsModule],
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent{
 

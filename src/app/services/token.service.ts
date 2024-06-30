@@ -30,11 +30,13 @@ export class TokenService {
 
   public removeToken(){
     localStorage.removeItem(this._localStorageTokenKey);
+    localStorage.removeItem('email');
+    localStorage.removeItem('role');
   }
 
   public isValid(): boolean{
     const token: string | null = this.loadToken();
-    
+
     if(!token){
       return false;
     }
@@ -44,10 +46,40 @@ export class TokenService {
       return false;
     }
 
-    // Hier ook andere validaties op de token 
-    // bijvoorbeeld validatie of de issuer (iss) overeen komt..
-  
     return true;
   }
+
+  public getUserId():number{
+
+    const token = this.loadToken();
+
+    console.log(token);
+
+    if(token != null){
+      const checkedToken : string = token!;
+      const userId = this.getPayload(checkedToken).userId;
+
+      return userId;
+    } else {
+      //error message toevoegen
+      return  0;
+    }
+
+  }
+
+  public getEmail(): string{
+
+    const token = this.loadToken();
+    if(token != null){
+      const checkedToken : string = token!;
+      const email = this.getPayload(checkedToken).email;
+      return email;
+    } else {
+      //error message toevoegen
+      return "";
+    }
+  }
+
+
 
 }

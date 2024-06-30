@@ -3,7 +3,13 @@
     <div class="active-promo-codes">
         <ul>
             <li *ngFor="let promoCode of activePromoCodes" style="color: green">
-                {{ promoCode.code }} - {{ promoCode.discount }}% off - Expires: {{ promoCode.expiryDate | date }} - Used: {{ promoCode.usageCount }} times
+                {{ promoCode.code }} -
+                {{ promoCode.discount }}
+                <span *ngIf="promoCode.type === 'percentage'">%</span>
+                <span *ngIf="promoCode.type === 'amount'">$</span>
+                off - Expires: {{ promoCode.expiryDate | date }} - Used: {{ promoCode.usageCount }} times
+                <span *ngIf="promoCode.minimumAmount > 0"> - Minimum Amount: {{ promoCode.minimumAmount }} $</span>
+                <button style="margin-left: 15px;" (click)="onDeletePromoCode(promoCode.code)">Delete</button>
             </li>
         </ul>
     </div>
@@ -12,28 +18,62 @@
     <div class="inactive-promo-codes">
         <ul>
             <li *ngFor="let promoCode of inactivePromoCodes" style="color: red">
-                {{ promoCode.code }} - {{ promoCode.discount }}% off - Expired: {{ promoCode.expiryDate | date }} - Used: {{ promoCode.usageCount }} times
+                {{ promoCode.code }} -
+                {{ promoCode.discount }}
+                <span *ngIf="promoCode.type === 'percentage'">%</span>
+                <span *ngIf="promoCode.type === 'amount'">$</span>
+                off - Expired: {{ promoCode.expiryDate | date }} - Used: {{ promoCode.usageCount }} times
+                <span *ngIf="promoCode.minimumAmount > 0"> - Minimum Amount: {{ promoCode.minimumAmount }} $</span>
+                <button style="margin-left: 15px;" (click)="onDeletePromoCode(promoCode.code)">Delete</button>
             </li>
         </ul>
     </div>
 
     <h2>Create New Promo Code</h2>
     <div class="create-promo-code">
-        <form (ngSubmit)="onCreatePromoCode(code.value, +discount.value, expiryDate.value)">
+        <div style="display: flex; justify-content: space-between;">
+            <button style="flex: 1; margin-right: 10px;" (click)="promoCodeType='percentage'">Create Percentage Discount Promo Code</button>
+            <button style="flex: 1; margin-left: 10px;" (click)="promoCodeType='amount'">Create Amount Discount Promo Code</button>
+        </div>
+
+        <form *ngIf="promoCodeType === 'percentage'" (ngSubmit)="onCreatePromoCode(code.value, +discount.value, +minPurchase.value || 0, expiryDate.value)">
             <div>
-                <label for="code">Code:</label>
+                <label for="code">Code: <span class="required">*</span></label>
                 <input type="text" id="code" #code required>
             </div>
             <div>
-                <label for="discount">Discount (%):</label>
-                <input type="number" id="discount" #discount required>
+                <label for="discount">Discount (%): <span class="required">*</span></label>
+                <input type="number" id="discount" #discount required min="1" max="99">
             </div>
             <div>
-                <label for="expiryDate">Expiry Date:</label>
+                <label for="minPurchase">Minimum Purchase Amount:</label>
+                <input type="number" id="minPurchase" #minPurchase>
+            </div>
+            <div>
+                <label for="expiryDate">Expiry Date: <span class="required">*</span></label>
                 <input type="date" id="expiryDate" #expiryDate required>
             </div>
-            <button type="submit">Create Promo Code</button>
+            <button type="submit">Create Percentage Discount Promo Code</button>
+        </form>
+
+        <form *ngIf="promoCodeType === 'amount'" (ngSubmit)="onCreatePromoCode(code.value, +amount.value, +minPurchase.value || 0, expiryDate.value)">
+            <div>
+                <label for="code">Code: <span class="required">*</span></label>
+                <input type="text" id="code" #code required>
+            </div>
+            <div>
+                <label for="amount">Discount Amount: <span class="required">*</span></label>
+                <input type="number" id="amount" #amount required>
+            </div>
+            <div>
+                <label for="minPurchase">Minimum Purchase Amount:</label>
+                <input type="number" id="minPurchase" #minPurchase>
+            </div>
+            <div>
+                <label for="expiryDate">Expiry Date: <span class="required">*</span></label>
+                <input type="date" id="expiryDate" #expiryDate required>
+            </div>
+            <button type="submit">Create Amount Discount Promo Code</button>
         </form>
     </div>
 </div>
-

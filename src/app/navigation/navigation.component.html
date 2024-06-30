@@ -11,7 +11,7 @@
           <li class="nav-item"><a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/">Home</a></li>
           <li class="nav-item"><a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/products">Products</a></li>
           <li class="nav-item"><a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/cart">Cart ({{ amountOfProducts }})</a></li>
-          <li class="nav-item"><a class="nav-link" routerLinkActive="active" *ngIf ="isAdmin" [routerLinkActiveOptions]="{exact: true}" routerLink="promo-codes">promocodes</a></li>
+          <li class="nav-item"><a class="nav-link" routerLinkActive="active" *ngIf ="isAdmin" [routerLinkActiveOptions]="{exact: true}" routerLink="/promo-codes">Promocodes panel</a></li>
           <li class="nav-item"><a class="nav-link" routerLinkActive="active" *ngIf ="!isAuthenticated" [routerLinkActiveOptions]="{exact: true}" routerLink="/auth/login">Login</a></li>
           <li class="nav-item"><a class="nav-link" routerLinkActive="active" *ngIf ="!isAuthenticated" [routerLinkActiveOptions]="{exact: true}" routerLink="/auth/register">Register</a></li>
           <li class="nav-item"><a class="nav-link" routerLinkActive="active" *ngIf ="isAuthenticated" [routerLinkActiveOptions]="{exact: true}" routerLink="/logout">Logout</a></li>

@@ -19,7 +19,7 @@ export class PromoCodeService {
             map(responseData => {
                 const promoCodes: PromoCode[] = [];
                 for (const promoCode of responseData) {
-                    promoCodes.push(new PromoCode(promoCode.code, promoCode.discount, promoCode.expiryDate, promoCode.usageCount));
+                    promoCodes.push(new PromoCode(promoCode.code, promoCode.discount, promoCode.expiryDate, promoCode.usageCount, promoCode.type, promoCode.minimumAmount));
                 }
                 return promoCodes;
             })
@@ -31,7 +31,7 @@ export class PromoCodeService {
             map(responseData => {
                 const promoCodes: PromoCode[] = [];
                 for (const promoCode of responseData) {
-                    promoCodes.push(new PromoCode(promoCode.code, promoCode.discount, promoCode.expiryDate, promoCode.usageCount));
+                    promoCodes.push(new PromoCode(promoCode.code, promoCode.discount, promoCode.expiryDate, promoCode.usageCount, promoCode.type, promoCode.minimumAmount));
                 }
                 return promoCodes;
             })
@@ -39,21 +39,22 @@ export class PromoCodeService {
     }
 
     public usePromoCode(code: string) {
-        return this.http.post(this.baseUrl + "/use", { code : code });
+        return this.http.post(this.baseUrl + "/use", { code: code }, { responseType: 'text' });
     }
+
 
     public getPromoCode(code: string) {
         return this.http.get<PromoCode>(this.baseUrl + "/get/" + code).pipe(
             map(responseData => {
-                return new PromoCode(responseData.code, responseData.discount, responseData.expiryDate, responseData.usageCount);
+                return new PromoCode(responseData.code, responseData.discount, responseData.expiryDate, responseData.usageCount, responseData.type, responseData.minimumAmount);
             })
         );
     }
 
-    public createPromoCode(code: string, discount: number, validUntil: Date) {
+    public createPromoCode(code: string, discount: number, type: string , minimumAmount: number = 0.0, validUntil: Date ) {
         const validUntilLocalDate = this.convertToLocalDate(validUntil);
 
-        return this.http.post(this.baseUrl + "/create", { code, discount, expiry_date : validUntilLocalDate }, { responseType: 'text' });
+        return this.http.post(this.baseUrl + "/create", { code, discount, type, minimumAmount, expiry_date : validUntilLocalDate }, { responseType: 'text' });
     }
 
     private convertToLocalDate(date: Date): string {
@@ -61,5 +62,14 @@ export class PromoCodeService {
         const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
         const day = date.getDate().toString().padStart(2, '0');
         return `${year}-${month}-${day}`;
+    }
+
+    public deletePromoCode(code: string) {
+        return this.http.post(this.baseUrl + "/delete", null, {
+            params: {
+                code: code
+            },
+            responseType: 'text'
+        });
     }
 }

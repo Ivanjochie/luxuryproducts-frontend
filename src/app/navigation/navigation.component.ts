@@ -42,7 +42,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
       this.isAuthenticated = !!user;
       console.log("UserRole In Nav bar", user.role)
-      this.isAdmin = user.role === 'ADMIN';
+      this.isAdmin = user.role === 'ROLE_ADMIN';
 
     } else {
       this.isAuthenticated = false;
