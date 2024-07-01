@@ -53,7 +53,7 @@
                 <label for="expiryDate">Expiry Date: <span class="required">*</span></label>
                 <input type="date" id="expiryDate" #expiryDate required>
             </div>
-            <button type="submit">Create Percentage Discount Promo Code</button>
+            <button type="submit">Create Promocode</button>
         </form>
 
         <form *ngIf="promoCodeType === 'amount'" (ngSubmit)="onCreatePromoCode(code.value, +amount.value, +minPurchase.value || 0, expiryDate.value)">
@@ -73,7 +73,7 @@
                 <label for="expiryDate">Expiry Date: <span class="required">*</span></label>
                 <input type="date" id="expiryDate" #expiryDate required>
             </div>
-            <button type="submit">Create Amount Discount Promo Code</button>
+            <button type="submit">Create Promocode</button>
         </form>
     </div>
 </div>
