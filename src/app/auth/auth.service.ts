@@ -28,11 +28,9 @@ export class AuthService {
                 localStorage.getItem('role') ?? ''
             );
             this.processLogin(localStorageInfo);
-            console.log('User is logged in (constructor)');
         }
         else {
             this.$userIsLoggedIn.next(false);
-            console.log('User is not logged in (constructor)');
         }
     }
 
@@ -42,16 +40,12 @@ export class AuthService {
             .pipe(
                 tap((authResponse: AuthResponse) => {
                     this.processLogin(authResponse);
-                    console.log("ProcessLogin (login)")
                 })
             );
     }
 
     isAdministrator(): boolean {
-        const currentUser = this.user.getValue();
-        console.log("Current User", currentUser);
-        console.log("Current User Role", currentUser?.role);
-        console.log("Current User Role", currentUser?.role === 'ROLE_ADMIN');
+        const currentUser = this.user.getValue();;
 
         return currentUser !== null && currentUser.role === 'ROLE_ADMIN';
     }
@@ -63,8 +57,6 @@ export class AuthService {
         localStorage.setItem('role', response.role);
         this.$userIsLoggedIn.next(true);
         this.user.next(user);
-        console.log('User is logged in (login method)');
-        console.log("UserRole In Auth Service", user.role);
     }
 
     public register(authRequest: AuthRequest): Observable<AuthResponse> {
@@ -73,7 +65,6 @@ export class AuthService {
             .pipe(
                 tap((authResponse: AuthResponse) => {
                     this.processLogin(authResponse);
-                    console.log("ProcessLogin (register)")
                 })
             );
 

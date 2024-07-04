@@ -53,8 +53,6 @@ export class TokenService {
 
     const token = this.loadToken();
 
-    console.log(token);
-
     if(token != null){
       const checkedToken : string = token!;
       const userId = this.getPayload(checkedToken).userId;
