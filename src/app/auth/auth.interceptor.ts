@@ -1,5 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { TokenService } from './token.service';
+import { TokenService } from '../services/token.service';
 import { inject } from '@angular/core';
 import { Token } from '@angular/compiler';
 

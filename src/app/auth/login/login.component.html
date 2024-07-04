@@ -1,18 +1,20 @@
 <div class="row">
     <div class="col">
         <h1>Log in</h1>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="form-group mb-3">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" formControlName="email" id="email">
+        <form (ngSubmit)="onLogin()">
+            <div class="mb-3"><label class="form-label" for="email">Email</label>
+                <input class="form-control item" type="email" [(ngModel)]="email" name="email" id="email" data-bs-theme="light">
             </div>
-            <div class="form-group mb-3">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" formControlName="password" id="password1">
+            <div class="mb-3"><label class="form-label" for="password">Password</label>
+                <input class="form-control" type="password" [(ngModel)]="password" name="password" id="password" data-bs-theme="light">
             </div>
-            <form (login)="onSubmit()">
-            <button type="submit" class="btn btn-md btn-dark" [disabled]="!loginForm.valid">Login</button>
-            </form>
+            <div class="mb-3" style="display: flex; justify-content: space-between">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkbox" data-bs-theme="light">
+                    <label class="form-check-label" for="checkbox">Remember me</label>
+                </div>
+                <div><a routerLink="/register">Register here</a></div>
+            </div><button class="btn btn-primary" type="submit">Log In</button>
         </form>
         
     </div>

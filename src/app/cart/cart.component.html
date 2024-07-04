@@ -1,45 +1,59 @@
 <section class="w-100 px-3 py-5" style="background-color: #eee; border-radius: .5rem .5rem 0 0;">
-  <div class="row d-flex justify-content-center">
-    <div class="col-xl-11">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
-      </div>
-      <div *ngFor="let product of products_in_cart; let i = index">
-        <div class="card rounded-3 mb-4">
-          <div class="card-body p-4">
-            <div class="row d-flex justify-content-between align-items-center">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img src="{{product}}"
-                  class="img-fluid rounded-3" alt="{{product.name}}">
-              </div>
-              <div class="col-md-3 col-lg-3 col-xl-3">
-                <p class="lead fw-normal mb-2">{{product.name}}</p>
-              </div>
-              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                <h5 class="mb-0">{{product.price | currency }}</h5>
-              </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a (click)="removeProductFromCart(i)" class="text-danger">Delete</a>
-              </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-11">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
             </div>
-          </div>
+            <div *ngFor="let product of products_in_cart; let i = index">
+                <div class="card rounded-3 mb-4">
+                    <div class="card-body p-4">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                <img src=""
+                                     class="img-fluid rounded-3" alt="{{product.name}}">
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                <p class="lead fw-normal mb-2">{{product.name}}</p>
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                <h5 class="mb-0">{{product.price | currency }}</h5>
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                <a (click)="removeProductFromCart(i)" class="text-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end mt-2">
+                <h5 class="fw-normal mb-0 text-black">Shipping: {{ shippingCosts | currency:'EUR' }}</h5>
+            </div>
+            <div *ngIf="appliedPromoCode" class="d-flex justify-content-end mt-2">
+                <h5 class="fw-normal mb-0 text-black">Discount ({{ appliedPromoCode }}): -{{ discountAmount | currency:'EUR' }}</h5>
+            </div>
+            <div class="d-flex justify-content-end mt-2">
+                <h4 class="fw-bold mb-0 text-black">Total: {{ (products_in_cart.length > 0 ? totalPrice : 0) | currency:'EUR' }}</h4>
+            </div>
+            <div class="promo-code-form mt-4">
+                <form (ngSubmit)="onCheckCode(promoCode)">
+                    <div class="form-group">
+                        <label for="promoCode" class="form-label">Promo Code:</label>
+                        <input type="text" id="promoCode" class="form-control" [(ngModel)]="promoCode" name="promoCode">
+                        <button type="submit" class="btn btn-secondary mt-2">Apply Code</button>
+                    </div>
+                </form>
+            </div>
+            <div class="order-form mt-5">
+                <form (ngSubmit)="placeOrder()">
+                    <div class="form-group">
+                        <label for="orderEmail" class="form-label">Email:</label>
+                        <input type="email" id="orderEmail" class="form-control" [(ngModel)]="orderEmail" (input)="updateOrderEmail($event)" name="orderEmail" required>
+                    </div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary">Bestelling plaatsen</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
-      <div class="d-flex justify-content-end mt-2">
-        <h5 class="fw-normal mb-0 text-black">Shipping: {{ shippingCosts | currency:'EUR' }}</h5>
-      </div>
-      <div class="d-flex justify-content-end mt-2">
-        <h4 class="fw-bold mb-0 text-black">Total: {{ (products_in_cart.length > 0 ? totalPrice : 0) | currency:'EUR' }}</h4>
-      </div>
-      <div class="order-form mt-5">
-        <form (submit)="placeOrder()">
-          <div class="form-group">
-          </div>
-          <div class="d-flex justify-content-end mt-4">
-            <button type="submit" class="btn btn-primary">Bestelling plaatsen</button>
-          </div>
-        </form>
-      </div>
     </div>
-  </div>
 </section>
